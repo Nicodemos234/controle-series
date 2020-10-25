@@ -38,6 +38,6 @@ class SeriesController extends Controller
             'mensagem',
             "Serie removida com sucesso"
         );
-        return redirect('')->route('listar_series');
+        return redirect()->route('listar_series');
     }
 }
