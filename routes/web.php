@@ -11,7 +11,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
 
 Route::get('/series', 'SeriesController@index')
     ->name('listar_series');
@@ -41,6 +40,21 @@ Route::get('/registrar', 'RegistroController@create');
 Route::post('/registrar', 'RegistroController@store');
 
 Route::get('/sair', function () {
-    Auth::logout();
+    \Illuminate\Support\Facades\Auth::logout();
     return redirect('/entrar');
+});
+
+Route::get('/visualizando-email', function () {
+    return new \App\Mail\NovaSerie('Arrow', 5 ,2);
+});
+
+Route::get('/enviando-email', function () {
+    $email = new \App\Mail\NovaSerie('Arrow', 5 ,2);
+    $email->subject = 'Nova Série adicionada';
+    $user = (object)[
+        'email' => 'nicodemos54324@gmail.com',
+        'name' => 'Nico'
+    ];
+    Illuminate\Support\Facades\Mail::to($user)->send($email);
+    return 'Email enviado!';
 });
